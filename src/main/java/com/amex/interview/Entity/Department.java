@@ -1,28 +1,32 @@
 package com.amex.interview.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
+@Table(name = "Department")
 public class Department {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String departmentName;
+    @Column(name = "name")
+    private String name;
 
     @OneToMany(mappedBy = "department")
-    @JsonBackReference
-    private Set<Employee> employees;
+    @JsonManagedReference
+    private List<Employee> employees;
 
     public Department() {
     }
 
-    public Department(Long id, String departmentName, Set<Employee> employees) {
+    public Department(Long id, String name, List<Employee> employees) {
         this.id = id;
-        this.departmentName = departmentName;
+        this.name = name;
         this.employees = employees;
     }
 
@@ -34,19 +38,19 @@ public class Department {
         this.id = id;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public String getName() {
+        return name;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Set<Employee> getEmployees() {
+    public List<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(Set<Employee> employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 }
