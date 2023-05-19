@@ -1,47 +1,52 @@
 package com.amex.interview.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Department {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long did;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    private String dName;
+    private String departmentName;
 
     @OneToMany(mappedBy = "department")
-    private List<Employee> employeeSet;
-
+    @JsonBackReference
+    private Set<Employee> employees;
 
     public Department() {
     }
 
-    public Long getDid() {
-        return did;
+    public Department(Long id, String departmentName, Set<Employee> employees) {
+        this.id = id;
+        this.departmentName = departmentName;
+        this.employees = employees;
     }
 
-    public void setDid(Long did) {
-        this.did = did;
+    public Long getId() {
+        return id;
     }
 
-    public String getdName() {
-        return dName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setdName(String dName) {
-        this.dName = dName;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public List<Employee> getEmployeeSet() {
-        return employeeSet;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
-    public void setEmployeeSet(List<Employee> employeeSet) {
-        this.employeeSet = employeeSet;
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
 }

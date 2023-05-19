@@ -6,15 +6,17 @@ import javax.persistence.*;
 
 @Entity
 public class Employee {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
     private String role;
 
     @ManyToOne
-    @JoinColumn(name="departmentId")
+    @JoinColumn(name = "department_id", nullable = false)
+    @JsonManagedReference
     private Department department;
 
     public Employee() {

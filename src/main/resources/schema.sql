@@ -1,18 +1,19 @@
--- CREATE TABLE Department (
+-- CREATE TABLE IF NOT EXISTS Employee (
 --     id BIGINT PRIMARY KEY AUTO_INCREMENT,
 --     name VARCHAR(255),
+--     role VARCHAR(255)
 -- );
 
-CREATE TABLE Department (
-    did BIGINT PRIMARY KEY AUTO_INCREMENT,
-    dName VARCHAR(255)
+CREATE TABLE IF NOT EXISTS Department (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    department_name VARCHAR(255)
 );
 
 
-CREATE TABLE Employee (
+CREATE TABLE IF NOT EXISTS Employee (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255),
     role VARCHAR(255),
-    departmentId BIGINT,
-    FOREIGN KEY (departmentId) REFERENCES Department(did)
-);
+    department_id BIGINT,
+    FOREIGN KEY (department_id) REFERENCES Department(id)
+    );
