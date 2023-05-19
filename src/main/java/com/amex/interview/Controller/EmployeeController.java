@@ -24,11 +24,11 @@ public class EmployeeController {
     private DepartmentRepository departmentRepository;
 
     // localhost:8080/employees
-//    [
+//[
 //    {
 //        "id": 1,
-//            "name": "Software Engineer",
-//            "role": null,
+//            "name": "John Doe",
+//            "role": "Software Engineer",
 //            "departmentDto": {
 //        "id": 1,
 //                "name": "Engineering"
@@ -36,8 +36,8 @@ public class EmployeeController {
 //    },
 //    {
 //        "id": 2,
-//            "name": "Data Scientist",
-//            "role": null,
+//            "name": "Jane Doe",
+//            "role": "Data Scientist",
 //            "departmentDto": {
 //        "id": 2,
 //                "name": "Data Science"
@@ -45,8 +45,8 @@ public class EmployeeController {
 //    },
 //    {
 //        "id": 3,
-//            "name": "Product Manager",
-//            "role": null,
+//            "name": "Bob Smith",
+//            "role": "Product Manager",
 //            "departmentDto": {
 //        "id": 3,
 //                "name": "Product Management"
@@ -65,7 +65,7 @@ public class EmployeeController {
             EmployeeDto employeeDto = new EmployeeDto();
             employeeDto.setId(e.getId());
             employeeDto.setName(e.getName());
-            employeeDto.setName(e.getRole());
+            employeeDto.setRole(e.getRole());
 
             // Grab the department
             Department department = e.getDepartment();
@@ -82,6 +82,9 @@ public class EmployeeController {
         return employeeDtoList;
     }
 
+
+
+
     // localhost:8080/employees/John Doe
 //    {
 //        "id": 1,
@@ -96,6 +99,7 @@ public class EmployeeController {
     @GetMapping("/{name}")
     public EmployeeDto getEmployeeByName(@PathVariable String name) {
         Employee employeeOptional = employeeRepository.findByName(name);
+
         if(employeeOptional != null){
             EmployeeDto employeeDto = new EmployeeDto();
             employeeDto.setId(employeeOptional.getId());
@@ -117,6 +121,17 @@ public class EmployeeController {
             return null;
         }
     }
+
+    //localhost:8080/employees/employee/1
+    //    {
+    //        "id": 1,
+    //            "name": "John Doe",
+    //            "role": "Software Engineer",
+    //            "departmentDto": {
+    //        "id": 1,
+    //                "name": "Engineering"
+    //    }
+    //    }
 
     @GetMapping("/employee/{id}")
     public EmployeeDto getEmployeeByName(@PathVariable Long id) {
@@ -143,18 +158,64 @@ public class EmployeeController {
         }
         else return null;
     }
+
+
+    // localhost:8080/employees
+    // PUT THIS IN THE BODY
+    //    {
+    //        "name": "Alice Johnson",
+    //            "role": "Software Engineer",
+    //            "department":{
+    //        "id": 1
+    //    }
+    //    }
+
     @PostMapping
     public Employee createEmployee(@RequestBody Employee employee) {
         return employeeRepository.save(employee);
     }
+
+//    localhost:8080/employees
+//    {
+//        "id": 1,
+//            "name": "Alice Johnson",
+//            "role": "Software Engineer",
+//            "department": {
+//        "id": 1
+//    }
+//    }
 
     @PutMapping
     public Employee updateEmployee(@RequestBody Employee employee) {
         return employeeRepository.save(employee);
     }
 
+
+
+    // localhost:8080/employees/1
+
+//    [
+//    {
+//        "id": 2,
+//            "name": "Jane Doe",
+//            "role": "Data Scientist",
+//            "departmentDto": {
+//        "id": 2,
+//                "name": "Data Science"
+//    }
+//    },
+//    {
+//        "id": 3,
+//            "name": "Bob Smith",
+//            "role": "Product Manager",
+//            "departmentDto": {
+//        "id": 3,
+//                "name": "Product Management"
+//    }
+//    }
+//]
     @DeleteMapping("/{id}")
     public void deleteEmployee(@PathVariable Long id) {
-        employeeRepository.findById(id);
+        employeeRepository.deleteById(id);
     }
 }
